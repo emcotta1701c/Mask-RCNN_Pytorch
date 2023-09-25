@@ -14,6 +14,7 @@ import visualize
 
 import torch
 
+import os
 
 # Root directory of the project
 ROOT_DIR = os.getcwd()
@@ -26,8 +27,10 @@ MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 # Path to trained weights file
 # Download this file and place in the root of your
 # project (See README file for details)
-COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")
+# COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")
 # COCO_MODEL_PATH = os.path.join("drive/MyDrive/Mask-RCNN_Pytorch/mask_rcnn_coco.pth")
+proj_dir = os.environ["$GROUP_HOME"]
+COCO_MODEL_PATH = os.path.join(proj_dir, "mask_rcnn_coco.pth")
 
 # Directory of images to run detection on
 IMAGE_DIR = os.path.join(ROOT_DIR, "images")
