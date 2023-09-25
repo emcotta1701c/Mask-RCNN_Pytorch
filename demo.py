@@ -18,6 +18,8 @@ import torch
 # Root directory of the project
 ROOT_DIR = os.getcwd()
 
+print("ROOT_DIR set to:", ROOT_DIR)
+
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 
