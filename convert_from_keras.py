@@ -1,6 +1,10 @@
 import argparse
 import collections
-import h5py
+
+print("Calling convert_from_keras.py. Expect an error importing h5py in the next line.")
+print("This file should not be run.")
+
+import h5py # should not run this line of code when running with Sherlock
 import torch
 
 alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
