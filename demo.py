@@ -26,8 +26,8 @@ MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 # Path to trained weights file
 # Download this file and place in the root of your
 # project (See README file for details)
-# COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")
-COCO_MODEL_PATH = os.path.join("drive/MyDrive/Mask-RCNN_Pytorch/mask_rcnn_coco.pth")
+COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")
+# COCO_MODEL_PATH = os.path.join("drive/MyDrive/Mask-RCNN_Pytorch/mask_rcnn_coco.pth")
 
 # Directory of images to run detection on
 IMAGE_DIR = os.path.join(ROOT_DIR, "images")
@@ -36,7 +36,8 @@ class InferenceConfig(coco.CocoConfig):
     # Set batch size to 1 since we'll be running inference on
     # one image at a time. Batch size = GPU_COUNT * IMAGES_PER_GPU
     # GPU_COUNT = 0 for CPU
-    GPU_COUNT = 0
+    # GPU_COUNT = 0
+    GPU_COUNT = 1
     IMAGES_PER_GPU = 1
 
 config = InferenceConfig()
