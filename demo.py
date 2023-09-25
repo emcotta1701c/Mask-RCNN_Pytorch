@@ -14,8 +14,6 @@ import visualize
 
 import torch
 
-import os
-
 # Root directory of the project
 ROOT_DIR = os.getcwd()
 
@@ -29,7 +27,9 @@ MODEL_DIR = os.path.join(ROOT_DIR, "logs")
 # project (See README file for details)
 # COCO_MODEL_PATH = os.path.join(ROOT_DIR, "mask_rcnn_coco.pth")
 # COCO_MODEL_PATH = os.path.join("drive/MyDrive/Mask-RCNN_Pytorch/mask_rcnn_coco.pth")
-proj_dir = os.environ["$GROUP_HOME"]
+# proj_dir = os.environ["$GROUP_HOME"] # doesn't work
+
+proj_dir = '/home/groups/kornberg/mrcnn_torch/'
 COCO_MODEL_PATH = os.path.join(proj_dir, "mask_rcnn_coco.pth")
 
 # Directory of images to run detection on
