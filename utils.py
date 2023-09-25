@@ -18,6 +18,9 @@ import skimage.color
 import skimage.io
 import torch
 
+# for scipy deprecation to replace scipy.misc.imresize
+from skimage.transform import resize
+
 ############################################################
 #  Bounding Boxes
 ############################################################
@@ -302,8 +305,9 @@ def resize_image(image, min_dim=None, max_dim=None, padding=False):
             scale = max_dim / image_max
     # Resize image and mask
     if scale != 1:
-        image = scipy.misc.imresize(
-            image, (round(h * scale), round(w * scale)))
+        # scipy version has to be upgraded, and imresize is removed/deprecated
+        # image = scipy.misc.imresize(image, (round(h * scale), round(w * scale)))
+        image = resize(image, (round(h * scale), round(w * scale)))
     # Need padding?
     if padding:
         # Get new height and width
@@ -346,7 +350,9 @@ def minimize_mask(bbox, mask, mini_shape):
         m = m[y1:y2, x1:x2]
         if m.size == 0:
             raise Exception("Invalid bounding box with area of zero")
-        m = scipy.misc.imresize(m.astype(float), mini_shape, interp='bilinear')
+        # scipy.misc.imresize removed/deprecated
+        # m = scipy.misc.imresize(m.astype(float), mini_shape, interp='bilinear')
+        m = resize(m.astype(float), mini_shape, order=1)    # order=1 is default and means bilinear interpolation
         mini_mask[:, :, i] = np.where(m >= 128, 1, 0)
     return mini_mask
 
@@ -363,7 +369,9 @@ def expand_mask(bbox, mini_mask, image_shape):
         y1, x1, y2, x2 = bbox[i][:4]
         h = y2 - y1
         w = x2 - x1
-        m = scipy.misc.imresize(m.astype(float), (h, w), interp='bilinear')
+        # scipy.misc.imresize deprecated+removed
+        # m = scipy.misc.imresize(m.astype(float), (h, w), interp='bilinear')
+        m = resize(m.astype(float), (h, w), order=1)    # order=1 means bilinear interpolation
         mask[y1:y2, x1:x2, i] = np.where(m >= 128, 1, 0)
     return mask
 
@@ -383,8 +391,9 @@ def unmold_mask(mask, bbox, image_shape):
     """
     threshold = 0.5
     y1, x1, y2, x2 = bbox
-    mask = scipy.misc.imresize(
-        mask, (y2 - y1, x2 - x1), interp='bilinear').astype(np.float32) / 255.0
+    # scipy.misc.imresize deprecated + removed
+    # mask = scipy.misc.imresize(mask, (y2 - y1, x2 - x1), interp='bilinear').astype(np.float32) / 255.0
+    mask = resize(mask, (y2 - y1, x2 - x1), order=1).astype(np.float32) / 255.0 # order=1 -> bilinear interpolation
     mask = np.where(mask >= threshold, 1, 0).astype(np.uint8)
 
     # Put the mask in the right location.
